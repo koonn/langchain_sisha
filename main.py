@@ -1,6 +1,8 @@
 import os
 import openai
 
+import streamlit as st
+
 from langchain.prompts import PromptTemplate
 
 from langchain.chat_models import ChatOpenAI
@@ -23,7 +25,7 @@ template_asking_shisha_flavor_mixes = """
 各フレーバーミックスの特徴も教えてください。
 """
 
-def main():
+def main(flavors: str):
     # プロンプトテンプレートの作成
     prompt = PromptTemplate(
         input_variables=['flavors'],
@@ -37,10 +39,18 @@ def main():
     chain = LLMChain(llm=llm, prompt=prompt)
 
     # チャットモデルの実行
-    prediction = chain.run(flavors='アップル')
+    prediction = chain.run(flavors=flavors)
 
-    print(prediction.strip())
+    # print(prediction.strip())
+    st.write(prediction.strip())
 
 
 if __name__ == '__main__':
-    main()
+    # タイトル
+    st.title('おすすめのフレーバーミックスを提案します!')
+
+    with st.form(key='my_form'):
+        flavors_text = st.text_input(label='ミックスに含めたいフレーバーを入力してください')
+        submitted = st.form_submit_button(label='送信')
+        if submitted:
+            main(flavors=flavors_text)
