@@ -23,7 +23,7 @@ template_asking_shisha_flavor_mixes = """
 各フレーバーミックスの特徴も教えてください。
 """
 
-if __name__ == '__main__':
+def main():
     # プロンプトテンプレートの作成
     prompt = PromptTemplate(
         input_variables=['flavors'],
@@ -40,4 +40,7 @@ if __name__ == '__main__':
     prediction = chain.run(flavors='アップル')
 
     print(prediction.strip())
-    # >> AIMessage(content="J'aime programmer.", additional_kwargs={})
+
+
+if __name__ == '__main__':
+    main()
