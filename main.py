@@ -4,13 +4,7 @@ import openai
 import streamlit as st
 
 from langchain.prompts import PromptTemplate
-
 from langchain.chat_models import ChatOpenAI
-from langchain.schema import (
-    AIMessage,
-    HumanMessage,
-    SystemMessage
-)
 from langchain.chains import LLMChain
 
 # .envファイルから、OpenAI API keyを読み込む
@@ -49,6 +43,7 @@ if __name__ == '__main__':
     # タイトル
     st.title('おすすめのフレーバーミックスを提案します!')
 
+    # メイン部分: フレーバーの入力と送信、結果の表示
     with st.form(key='my_form'):
         flavors_text = st.text_input(label='ミックスに含めたいフレーバーを入力してください')
         submitted = st.form_submit_button(label='送信')
