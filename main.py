@@ -13,9 +13,9 @@ from langchain.schema import (
 )
 from langchain.chains import LLMChain
 
-# Load OpenAI API key from .env file
+# .envファイルから、OpenAI API keyを読み込む
 from dotenv import load_dotenv, find_dotenv
-_ = load_dotenv(find_dotenv()) # read local .env file
+_ = load_dotenv(find_dotenv())
 openai.api_key = os.environ['OPENAI_API_KEY']
 
 # プロンプトテンプレートの定義
