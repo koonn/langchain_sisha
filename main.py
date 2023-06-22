@@ -9,6 +9,7 @@ from langchain.schema import (
     HumanMessage,
     SystemMessage
 )
+from langchain.chains import LLMChain
 
 # Load OpenAI API key from .env file
 from dotenv import load_dotenv, find_dotenv
@@ -29,15 +30,14 @@ if __name__ == '__main__':
         template=template_asking_shisha_flavor_mixes
     )
 
-    # テンプレートからプロンプトを生成
-    prompt = prompt.format(flavors='アップル')
-    # print(prompt)
-
     # チャットモデルの作成
     llm = ChatOpenAI(model='gpt-3.5-turbo')
 
-    # チャットモデルの実行
-    message = llm.predict_messages([HumanMessage(content=prompt)])
+    # LLMチェーンを作成
+    chain = LLMChain(llm=llm, prompt=prompt)
 
-    print(message.content)
+    # チャットモデルの実行
+    prediction = chain.run(flavors='アップル')
+
+    print(prediction.strip())
     # >> AIMessage(content="J'aime programmer.", additional_kwargs={})
